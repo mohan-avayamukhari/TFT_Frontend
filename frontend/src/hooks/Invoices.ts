@@ -20,7 +20,7 @@ export const Invoices = (
   const fetchData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("https://localhost:7182/api/invoices");
+      const res = await axios.get("https://tft-backend-bxgka4cvasgvf6an.centralindia-01.azurewebsites.net/api/invoices");
       const itemsWithKey = res.data.items.map((item: any) => ({
         ...item,
         key: item.id,
@@ -36,7 +36,7 @@ export const Invoices = (
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`https://localhost:7182/api/invoices/${id}`);
+      await axios.delete(`https://tft-backend-bxgka4cvasgvf6an.centralindia-01.azurewebsites.net/api/invoices/${id}`);
       showToast("Invoice deleted successfully!", "success");
       setRefreshKey((prev) => prev + 1);
     } catch (err) {
@@ -47,7 +47,7 @@ export const Invoices = (
 
   const handleCreate = async (values: any) => {
     try {
-      await axios.post("https://localhost:7182/api/invoices/create", values);
+      await axios.post("https://tft-backend-bxgka4cvasgvf6an.centralindia-01.azurewebsites.net/api/invoices/create", values);
       showToast("Invoice created successfully!", "success");
       setRefreshKey((prev) => prev + 1);
     } catch (err) {
@@ -59,7 +59,7 @@ export const Invoices = (
   const handleUpdate = async (values: any) => {
     try {
       if (!editingInvoice) throw new Error("No invoice selected to update");
-      await axios.put(`https://localhost:7182/api/invoices/${editingInvoice.id}`, values);
+      await axios.put(`https://tft-backend-bxgka4cvasgvf6an.centralindia-01.azurewebsites.net/api/invoices/${editingInvoice.id}`, values);
       showToast("Invoice updated successfully!", "success");
       setEditingInvoice(null);
       setRefreshKey((prev) => prev + 1);

@@ -47,13 +47,13 @@ const FormSection: React.FC<FormSectionProps> = ({initialValues, onSubmit}) => {
 };
   
   return (
-    <Box component="fieldset" sx={{ display: 'flex', flexDirection: 'column', 
-      fontSize:"small", border: '1px solid #ccc', borderRadius: 2, p: 2, mt: 2 
+    <Box component="fieldset" sx={{ display: 'flex', flexDirection: 'column',
+      border: '1px solid #ccc', borderRadius: 2, p: 2, mt: 2 
     }}>
-    <Box component="legend" sx={{ px: 1, fontSize: '0.75rem', color: '#555', fontWeight: 'bold' }}>
+    <Box component="legend" sx={{ px: 1, color: '#555', fontWeight: 'bold' }}>
       Invoice Details
     </Box>
-      <Form style={{ fontSize: '0.75rem' }} className="compact-form" form={form}>
+      <Form className="compact-form" form={form}>
         <Box display={'flex'} flexDirection='row' justifyContent='space-between' alignItems='center'>
           <Box>
             <Form.Item name="providerType" label="Provider Type" required 
@@ -97,7 +97,7 @@ const FormSection: React.FC<FormSectionProps> = ({initialValues, onSubmit}) => {
               <Input />
             </Form.Item>
             <Form.Item name="taxWithheld" label="Tax withheld">
-              <Input />
+              <InputNumber style={{width: "13.5rem"}}/>
             </Form.Item>
             <Form.Item name="details" label="Details">
               <Input />
@@ -106,7 +106,7 @@ const FormSection: React.FC<FormSectionProps> = ({initialValues, onSubmit}) => {
         </Box>
         </Form>
         <Form className="compact-form" layout='vertical' form={form} onFinish={handleFinish}>
-          <Box display={'flex'} flexDirection='row' justifyContent='space-between' alignItems='center' gap={2}>
+          <Box display={'flex'} flexDirection='row' justifyContent='space-between' alignItems='center' gap={1}>
           <Form.Item name="totalIncludingVat" label="Total Including VAT" style={{ width: '20%' }}>
             <InputNumber style={{width: "12rem"}}/>
           </Form.Item>

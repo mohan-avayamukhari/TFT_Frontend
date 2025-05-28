@@ -40,7 +40,7 @@ const DataTable: React.FC<DataTableProps> = ({ onEdit, onDelete, refreshKey }) =
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await fetch('https://localhost:7182/api/invoices');
+        const response = await fetch('https://tft-backend-bxgka4cvasgvf6an.centralindia-01.azurewebsites.net/api/invoices');
         const result = await response.json();
         const itemsWithKey = result.items.map((item: any) => ({
           ...item,
