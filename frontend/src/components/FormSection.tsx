@@ -48,12 +48,12 @@ const FormSection: React.FC<FormSectionProps> = ({initialValues, onSubmit}) => {
   
   return (
     <Box component="fieldset" sx={{ display: 'flex', flexDirection: 'column', 
-      border: '1px solid #ccc', borderRadius: 2, p: 2, mt: 2 
+      fontSize:"small", border: '1px solid #ccc', borderRadius: 2, p: 2, mt: 2 
     }}>
     <Box component="legend" sx={{ px: 1, fontSize: '0.75rem', color: '#555', fontWeight: 'bold' }}>
       Invoice Details
     </Box>
-      <Form form={form}>
+      <Form style={{ fontSize: '0.75rem' }} className="compact-form" form={form}>
         <Box display={'flex'} flexDirection='row' justifyContent='space-between' alignItems='center'>
           <Box>
             <Form.Item name="providerType" label="Provider Type" required 
@@ -105,7 +105,7 @@ const FormSection: React.FC<FormSectionProps> = ({initialValues, onSubmit}) => {
           </Box>
         </Box>
         </Form>
-        <Form layout='vertical' form={form} onFinish={handleFinish}>
+        <Form className="compact-form" layout='vertical' form={form} onFinish={handleFinish}>
           <Box display={'flex'} flexDirection='row' justifyContent='space-between' alignItems='center' gap={2}>
           <Form.Item name="totalIncludingVat" label="Total Including VAT" style={{ width: '20%' }}>
             <InputNumber style={{width: "12rem"}}/>
@@ -125,7 +125,7 @@ const FormSection: React.FC<FormSectionProps> = ({initialValues, onSubmit}) => {
               <Select.Option value="Transfer">Transfer</Select.Option>
             </Select>
           </Form.Item>
-          <Form.Item name="natureOfInvoicePlan" label="The nature of the invoice-plan number and its description" style={{ width: '40%' }}> 
+          <Form.Item name="natureOfInvoicePlan" label="The nature of the invoice-plan" style={{ width: '40%' }}> 
             <Input/>
           </Form.Item>
           <Form.Item name="planTax" label="Plan tax">

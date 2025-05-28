@@ -4,7 +4,7 @@ const Header = () => {
       <div className="space-x-4">
         <span>26.05.2025</span>
         <span>databaseSuffix</span>
-        <span className="font-bold">institution244111</span>
+        <span>institution244111</span>
         <span>schoolYearInputLabel</span>
         <span>fiscalYear 2025</span>
       </div>

@@ -28,12 +28,34 @@ interface InvoiceData {
 
 interface DataTableProps {
   onEdit: (invoice: InvoiceData) => void;
+  onDelete: (id: string) => void;
   refreshKey: number;
 }
 
-const DataTable: React.FC<DataTableProps> = ({ onEdit, refreshKey }) => {
+const DataTable: React.FC<DataTableProps> = ({ onEdit, onDelete, refreshKey }) => {
   const [data, setData] = useState<InvoiceData[]>([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('https://localhost:7182/api/invoices');
+        const result = await response.json();
+        const itemsWithKey = result.items.map((item: any) => ({
+          ...item,
+          key: item.id,
+        }));
+        setData(itemsWithKey);
+      } catch (error) {
+        console.error('Failed to fetch invoices:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [refreshKey]);
 
   const columns: TableProps<InvoiceData>['columns'] = [
     { title: 'ID', dataIndex: 'id', key: 'id' },
@@ -56,56 +78,19 @@ const DataTable: React.FC<DataTableProps> = ({ onEdit, refreshKey }) => {
     { title: 'Invoice Number', dataIndex: 'invoiceNumber', key: 'invoiceNumber' },
     {
       title: 'Actions',
+      width: 100,
       fixed: 'right',
       render: (_, record) =>
         data.length >= 1 ? (
-          <>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <a onClick={() => onEdit(record)} style={{ marginRight: 8 }}>Edit</a>
-            <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
+            <Popconfirm title="Sure to delete?" onConfirm={() => onDelete(record.key)}>
               <a>Delete</a>
             </Popconfirm>
-          </>
+          </div>
         ) : null,
     },
   ];
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const res = await fetch('https://localhost:7182/api/invoices');
-        const json = await res.json();
-        const itemsWithKey = json.items.map((item: InvoiceData) => ({
-          ...item,
-          key: item.id || item.key || Math.random().toString(),
-        }));
-        setData(itemsWithKey);
-      } catch (error) {
-        console.error('Failed to fetch data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [refreshKey]);
-  
-  const handleDelete = async (key: string) => {
-    try 
-    {
-      const res = await fetch(`https://localhost:7182/api/invoices/${key}`, {
-      method: 'DELETE',
-    });
-      if (!res.ok) {
-        throw new Error('Failed to delete invoice');
-      }
-      setData((prevData) => prevData.filter((item) => item.key !== key));
-    } 
-    catch (error) {
-    console.error('Failed to delete invoice:', error);
-  }
-};
-
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #ccc', borderRadius: 2, p: 2, mt: 2 }}>
